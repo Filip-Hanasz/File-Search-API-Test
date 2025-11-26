@@ -227,6 +227,44 @@ def delete_file(client):
         traceback.print_exc()
 
 
+def delete_file_search_store(client):
+    """7. Kasowanie biblioteki"""
+    print("\n=== Kasowanie biblioteki ===")
+    
+    # Lista bibliotek do wyboru
+    stores = list_file_search_stores(client)
+    if not stores:
+        print("Brak bibliotek do usunięcia.")
+        return
+    
+    try:
+        choice = int(input(f"\nWybierz bibliotekę do usunięcia (1-{len(stores)}): "))
+        if choice < 1 or choice > len(stores):
+            print("Nieprawidłowy wybór.")
+            return
+        
+        selected_store = stores[choice - 1]
+        
+        display_name = selected_store.display_name
+        confirm = input(f"\nCzy na pewno chcesz usunąć bibliotekę '{display_name}'? (tak/nie): ")
+        if confirm.lower() != 'tak':
+            print("Anulowano.")
+            return
+        
+        # Usuwanie biblioteki z File Search API (force=True usuwa wszystkie dokumenty)
+        client.file_search_stores.delete(
+            name=selected_store.name,
+            config={'force': True}
+        )
+        
+        print(f"✓ Biblioteka '{display_name}' została usunięta.")
+        
+    except ValueError:
+        print("✗ Nieprawidłowy wybór.")
+    except Exception as e:
+        print(f"✗ Błąd podczas kasowania biblioteki: {e}")
+
+
 def query_model_with_store(client):
     """6. Odpytywanie modelu z użyciem biblioteki"""
     print("\n=== Odpytywanie modelu z biblioteką ===")
@@ -362,6 +400,7 @@ def main():
         print("4. Listuj pliki w bibliotece")
         print("5. Usuń plik")
         print("6. Odpytaj model z biblioteką")
+        print("7. Usuń bibliotekę")
         print("0. Wyjście")
         print("="*50)
         
@@ -379,6 +418,8 @@ def main():
             delete_file(client)
         elif choice == '6':
             query_model_with_store(client)
+        elif choice == '7':
+            delete_file_search_store(client)
         elif choice == '0':
             print("\nDo widzenia!")
             break

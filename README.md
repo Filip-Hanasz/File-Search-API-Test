@@ -17,6 +17,7 @@ Prosta aplikacja konsolowa do zarządzania bibliotekami embeddingów w Gemini AP
 4. **Listowanie dokumentów** - Wyświetl wszystkie dokumenty w wybranej bibliotece
 5. **Kasowanie dokumentów** - Usuń nieaktualne dokumenty z biblioteki
 6. **Odpytywanie modelu** - Zadawaj pytania modelowi Gemini z użyciem plików z wybranej biblioteki
+7. **Kasowanie bibliotek** - Usuń całą bibliotekę wraz z wszystkimi dokumentami
 
 ## Wymagania
 
@@ -51,6 +52,7 @@ Następnie wybierz opcję z menu:
 - `4` - Listuj dokumenty w bibliotece
 - `5` - Usuń dokument z biblioteki
 - `6` - Odpytaj model z biblioteką
+- `7` - Usuń bibliotekę
 - `0` - Wyjście
 
 ### Przykład użycia opcji 6 (Odpytywanie modelu)
@@ -68,5 +70,6 @@ Po wybraniu opcji 6:
 - Aplikacja używa wyłącznie **File Search API** do zarządzania dokumentami w bibliotekach
 - Pliki są automatycznie indeksowane po uploadzie (operacja asynchroniczna)
 - Usunięcie dokumentu jest nieodwracalne
+- Usunięcie biblioteki usuwa wszystkie dokumenty w niej zawarte (operacja nieodwracalna)
 - Model używa plików z biblioteki do generowania odpowiedzi - informacje o użytych plikach są wyświetlane pod odpowiedzią
 
